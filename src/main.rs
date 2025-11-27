@@ -39,8 +39,8 @@ fn distance(a: &[f64], b: &[f64]) -> f64 {
 
 fn main() {
     // ==== パラメータ ====
-    let k: usize = 5; // 近傍として見る個体数
-    let threshold: f64 = 1.5; // アーカイブ追加の閾値
+    let k: usize = 7; // 近傍として見る個体数
+    let threshold: f64 = 0.5; // アーカイブ追加の閾値
 
     // ==== 初期集団（2次元空間上の4点）====
     let mut population: Vec<Vec<f64>> = vec![
@@ -70,7 +70,7 @@ fn main() {
     let mut scored_population: Vec<(Vec<f64>, f64)>;
     // ==== 選択された次世代個体群 ====
     let mut selected_population: Vec<Vec<f64>>;
-    let remain_agents = 5; // 次世代に残す個体数
+    let remain_agents = 7; // 次世代に残す個体数
     // ==== 生成された次世代個体群 ====
     let mut next_population: Vec<Vec<f64>>;
     // ==== 子供の個体 ====
@@ -78,7 +78,7 @@ fn main() {
 
     println!("--- Novelty Evaluation ---");
 
-    for _generation in 0..100 {
+    for _generation in 0..10 {
         println!("\nGeneration {}", _generation);
         scored_population = Vec::new(); // 次世代個体群を初期化
         // === 各個体について新規性スコアを計算 === //
@@ -156,7 +156,7 @@ fn main() {
             }
             // 突然変異: 各次元に小さなランダムノイズを加える
             for dimension in &mut child_agent {
-                let noise: f64 = (rand::random::<f64>() - 0.5) * 0.2; // -0.1 〜 +0.1 のノイズ
+                let noise: f64 = (rand::random::<f64>() - 0.5) * 1.2; // -0.6 〜 +0.6 のランダムノイズ
                 *dimension += noise;
             }
             next_population.push(child_agent);
